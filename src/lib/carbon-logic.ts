@@ -81,7 +81,7 @@ export async function loadMaterialData(): Promise<MaterialData[]> {
 "Aluminium (Recycled)","Envelope","kg",1.81,3.80,"ICE Database v3.0"`;
 
         const lines = csvContent.split('\n').slice(1);
-        return lines.map(line => {
+        const materials = lines.map(line => {
             const parts = line.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
             if (!parts) return null;
             const values = parts.map(v => v.replace(/"/g, ''));
@@ -94,6 +94,11 @@ export async function loadMaterialData(): Promise<MaterialData[]> {
                 source: values[5]
             };
         }).filter((x): x is MaterialData => x !== null);
+
+        if (materials.length === 0) {
+            console.warn("Warning: No valid materials parsed from CSV");
+        }
+        return materials;
     } catch (error) {
         console.error("Failed to load material data", error);
         return [];
