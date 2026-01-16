@@ -8,6 +8,14 @@ import { ArrowRight, Leaf, Zap, BarChart3, Globe } from "lucide-react"
 
 import { useAuth } from "@/context/AuthContext"
 import { LogOut, User } from "lucide-react"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
+import Autoplay from "embla-carousel-autoplay"
 
 export default function LandingPage() {
   const { user, logout } = useAuth()
@@ -97,18 +105,44 @@ export default function LandingPage() {
                 </Button>
               </div>
 
-              {/* Hero Image */}
-              <motion.div
+              {/* Hero Image Slider */}
+<motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.2, duration: 0.8 }}
-                className="mt-16 rounded-2xl overflow-hidden shadow-2xl border-8 border-white/50"
+                className="mt-16 relative"
               >
-                <img
-                  src="/hero.png"
-                  alt="Sustainable Building Visualization"
-                  className="w-full h-auto object-cover max-h-[500px]"
-                />
+                <Carousel
+                  plugins={[
+                    Autoplay({
+                      delay: 4000,
+                    }),
+                  ]}
+                  className="w-full max-w-5xl mx-auto"
+                >
+                  <CarouselContent>
+                    {[
+                      { src: "/hero-1.png", alt: "Vertical Gardens Skyscraper" },
+                      { src: "/hero-2.png", alt: "Modular Sustainable Construction" },
+                      { src: "/hero-3.png", alt: "Green Future City" }
+                    ].map((img, index) => (
+                      <CarouselItem key={index}>
+                        <div className="rounded-2xl overflow-hidden shadow-2xl border-8 border-white/50 aspect-video relative">
+                          <img
+                            src={img.src}
+                            alt={img.alt}
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-8">
+                            <p className="text-white text-lg font-medium opacity-90">{img.alt}</p>
+                          </div>
+                        </div>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  <CarouselPrevious className="left-4 bg-background/50 backdrop-blur border-none hover:bg-background/80" />
+                  <CarouselNext className="right-4 bg-background/50 backdrop-blur border-none hover:bg-background/80" />
+                </Carousel>
               </motion.div>
 
 
