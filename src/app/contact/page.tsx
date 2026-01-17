@@ -40,7 +40,7 @@ export default function ContactPage() {
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-lg">Email us</h3>
-                                    <p className="text-muted-foreground">hello@greenbuild.ai</p>
+                                    <p className="text-muted-foreground">qasimyousaf094@gmail.com</p>
                                     <p className="text-muted-foreground text-sm">Response within 24 hours</p>
                                 </div>
                             </div>
@@ -55,15 +55,7 @@ export default function ContactPage() {
                                 </div>
                             </div>
 
-                            <div className="flex items-start gap-4">
-                                <div className="w-12 h-12 bg-amber-500/10 rounded-xl flex items-center justify-center text-amber-500 shrink-0">
-                                    <MapPin className="w-6 h-6" />
-                                </div>
-                                <div>
-                                    <h3 className="font-bold text-lg">Our Headquarters</h3>
-                                    <p className="text-muted-foreground">Silicon Valley, CA, USA</p>
-                                </div>
-                            </div>
+
                         </div>
                     </motion.div>
 

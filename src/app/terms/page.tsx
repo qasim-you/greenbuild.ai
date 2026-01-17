@@ -64,7 +64,7 @@ export default function TermsPage() {
                         <p>
                             If you have any questions regarding these terms, please contact us.
                         </p>
-                        <p className="font-semibold text-blue-500 mt-2">legal@greenbuild.ai</p>
+                        <p className="font-semibold text-blue-500 mt-2">qasimyousaf094@gmail.com</p>
                     </section>
                 </div>
             </div>

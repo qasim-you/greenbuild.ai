@@ -13,6 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://greenbuild.ai"),
   title: "GreenBuild AI | Carbon-Smart Construction Advisor",
   description: "AI-powered sustainability advisor for construction projects. Reduce carbon, build greener, and save costs with intelligent AI reasoning.",
   keywords: ["sustainability", "construction", "carbon footprint", "AI advisor", "green building", "carbon-smart", "embodied carbon"],
@@ -43,6 +44,7 @@ export const metadata: Metadata = {
 
 import { AuthProvider } from "@/context/AuthContext";
 import { AuthGuard } from "@/components/auth/AuthGuard";
+import ChatBot from "@/components/chat/ChatBot";
 
 export default function RootLayout({
   children,
@@ -57,6 +59,7 @@ export default function RootLayout({
         <AuthProvider>
           <AuthGuard>
             {children}
+            <ChatBot />
           </AuthGuard>
         </AuthProvider>
       </body>

@@ -4,7 +4,7 @@ import Link from "next/link"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { ArrowRight, Leaf, Zap, BarChart3, Globe } from "lucide-react"
+import { ArrowRight, Leaf, Zap, BarChart3, Globe, Target, Users } from "lucide-react"
 
 import { useAuth } from "@/context/AuthContext"
 import { LogOut, User } from "lucide-react"
@@ -52,6 +52,7 @@ export default function LandingPage() {
           <nav className="hidden md:flex items-center gap-6">
             <Link href="#features" className="text-sm font-medium hover:text-primary transition-colors">Features</Link>
             <Link href="#how-it-works" className="text-sm font-medium hover:text-primary transition-colors">How it Works</Link>
+            <Link href="/vision" className="text-sm font-medium hover:text-primary transition-colors">Our Vision</Link>
 
             {user ? (
               <div className="flex items-center gap-4">
@@ -94,19 +95,19 @@ export default function LandingPage() {
                 AI-powered carbon-smart construction decisions. Instantly estimate impact, receive green alternatives, and build the future sustainably.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-                <Button asChild size="lg" className="h-12 px-8 rounded-full text-lg font-semibold group">
+                <Button asChild size="lg" className="h-12 px-8 rounded-full text-lg font-semibold group text-white">
                   <Link href="/analyze">
                     Analyze Your Building
                     <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </Button>
-                <Button variant="outline" size="lg" className="h-12 px-8 rounded-full text-lg font-semibold">
-                  View Case Studies
+                <Button variant="outline" asChild size="lg" className="h-12 px-8 rounded-full text-lg font-semibold">
+                  <Link href="/vision">View Our Vision</Link>
                 </Button>
               </div>
 
               {/* Hero Image Slider */}
-<motion.div
+              <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.2, duration: 0.8 }}
@@ -264,6 +265,55 @@ export default function LandingPage() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Strategic Vision Preview */}
+        <section className="py-24 bg-background">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-col md:flex-row items-center gap-16">
+              <div className="flex-1 space-y-8">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold">
+                  <Target className="w-3 h-3" />
+                  <span>Strategic Roadmap</span>
+                </div>
+                <h2 className="text-4xl md:text-5xl font-bold leading-tight">
+                  Regenerating our cities <br />
+                  <span className="text-primary">one decision at a time.</span>
+                </h2>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  Our solution isn't just a calculator. It's a strategic framework for carbon-negative,
+                  affordable housing that aligns with the UN Sustainable Development Goals.
+                </p>
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3">
+                    <div className="mt-1 bg-primary/20 p-1 rounded-full"><Leaf className="w-4 h-4 text-primary" /></div>
+                    <p className="font-medium text-sm">Carbon-Negative Materials via Bio-Sequestration</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="mt-1 bg-primary/20 p-1 rounded-full"><Globe className="w-4 h-4 text-primary" /></div>
+                    <p className="font-medium text-sm">Real-time SDG Impact Tracking (Goal 11, 12, 13)</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="mt-1 bg-primary/20 p-1 rounded-full"><Users className="w-4 h-4 text-primary" /></div>
+                    <p className="font-medium text-sm">Community-Centric Urban Regeneration Models</p>
+                  </div>
+                </div>
+                <Button asChild variant="outline" className="rounded-full">
+                  <Link href="/vision">Read Full Strategy</Link>
+                </Button>
+              </div>
+              <div className="flex-1 grid grid-cols-2 gap-4">
+                <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 space-y-4">
+                  <h4 className="font-bold text-primary">MVP</h4>
+                  <p className="text-xs text-muted-foreground">3 Month Goal: Full Carbon Decision Engine & Advisor</p>
+                </div>
+                <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 space-y-4 translate-y-8">
+                  <h4 className="font-bold text-primary">POC</h4>
+                  <p className="text-xs text-muted-foreground">6 Month Goal: Live Regional Supplier API Integration</p>
+                </div>
+              </div>
             </div>
           </div>
         </section>

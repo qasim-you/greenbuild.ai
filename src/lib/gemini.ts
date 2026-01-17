@@ -2,6 +2,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai"
 import { MaterialData, MaterialMixItem } from "./carbon-logic"
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "")
+console.log(process.env.GEMINI_API_KEY);
 
 export async function getGreenBuildRecommendations(
   specs: {
@@ -14,8 +15,9 @@ export async function getGreenBuildRecommendations(
   currentMix: MaterialMixItem[],
   availableMaterials: MaterialData[]
 ) {
+  // ✅ Updated model to a valid one
   const model = genAI.getGenerativeModel({
-    model: "gemini-2.0-flash-exp",
+    model: "gemini-2.0-flash", // fixed model
     generationConfig: {
       responseMimeType: "application/json",
       temperature: 0.2
@@ -24,27 +26,27 @@ export async function getGreenBuildRecommendations(
 
   const materialContext = availableMaterials.map(m =>
     `- ${m.material}: ${m.carbon_kg_per_unit} kg CO2e/unit, $${m.cost_per_unit}/unit (Source: ${m.source})`
-  ).join("\n");
+  ).join("\n")
 
   const currentMixContext = currentMix.map(m =>
     `- ${m.material}: ${m.quantity.toFixed(0)} ${m.unit}, ${m.totalCarbon.toFixed(2)} tons CO2e`
-  ).join("\n");
+  ).join("\n")
 
   const prompt = `
     You are GreenBuild AI, a senior sustainability engineer.
     Analyze this building and provide optimizations in pure JSON format.
-    
+
     BUILDING:
     - Type: ${specs.type} covering ${specs.area} sq ft, ${specs.floors} floors.
     - Location: ${specs.location}
     - Budget: ${specs.budget}
-    
+
     CURRENT MIX:
     ${currentMixContext}
-    
+
     AVAILABLE MATERIALS DATABASE:
     ${materialContext}
-    
+
     TASK:
     1. Identify hotspots.
     2. Suggest 3 specific material swaps from the database.
@@ -78,23 +80,25 @@ export async function getGreenBuildRecommendations(
       const text = response.text()
 
       // Aggressive JSON Cleaning
-      // Removes markdown code blocks, checks for leading/trailing junk
-      const cleanText = text.replace(/```json|```/g, "").trim();
-      const jsonStart = cleanText.indexOf('{');
-      const jsonEnd = cleanText.lastIndexOf('}');
+      const cleanText = text.replace(/```json|```/g, "").trim()
+      const jsonStart = cleanText.indexOf('{')
+      const jsonEnd = cleanText.lastIndexOf('}')
 
-      if (jsonStart === -1 || jsonEnd === -1) throw new Error("No JSON structure found");
+      if (jsonStart === -1 || jsonEnd === -1) throw new Error("No JSON structure found")
 
-      const validJsonStr = cleanText.substring(jsonStart, jsonEnd + 1);
-      return JSON.parse(validJsonStr);
+      const validJsonStr = cleanText.substring(jsonStart, jsonEnd + 1)
+      return JSON.parse(validJsonStr)
 
     } catch (error) {
       console.warn(`Gemini API Attempt ${attempt} failed:`, error)
       if (attempt === 2) {
-        console.error("Final Gemini API failure. Returning null.");
-        return null;
+        console.error("Final Gemini API failure. Returning null.")
+        return null
       }
+      // Optional: wait 1-2 seconds before retrying
+      await new Promise(resolve => setTimeout(resolve, 1500))
     }
   }
-  return null;
+
+  return null
 }

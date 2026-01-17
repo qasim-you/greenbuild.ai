@@ -76,7 +76,7 @@ export default function PrivacyPage() {
                         <p>
                             If you have any questions about this Privacy Policy, please contact us at:
                         </p>
-                        <p className="font-semibold text-primary mt-2">privacy@greenbuild.ai</p>
+                        <p className="font-semibold text-primary mt-2">qasimyousaf094@gmail.com</p>
                     </section>
                 </div>
             </div>
