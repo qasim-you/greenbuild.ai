@@ -1,9 +1,10 @@
-import { createGoogleGenerativeAI } from "@ai-sdk/google"
+import { createGroq } from "@ai-sdk/groq"
 import { generateText } from "ai"
 import { NextResponse } from "next/server"
 
-const google = createGoogleGenerativeAI({
-    apiKey: process.env.GEMINI_API_KEY || "",
+// Initialize Groq with free API
+const groq = createGroq({
+    apiKey: process.env.GROQ_API_KEY || "",
 })
 
 const SYSTEM_CONTEXT = `You are GreenBuild AI Assistant, a friendly and knowledgeable sustainability expert for construction projects.
@@ -37,7 +38,7 @@ export async function POST(req: Request) {
         }
 
         const { text } = await generateText({
-            model: google("gemini-exp-1206"),
+            model: groq("llama-3.3-70b-versatile"),
             system: SYSTEM_CONTEXT,
             messages: [
                 ...(history || []).map((msg: any) => ({
@@ -56,7 +57,7 @@ export async function POST(req: Request) {
         // Final fallback if quota is still an issue
         if (error.status === 429 || error.message?.includes("quota")) {
             return NextResponse.json({
-                message: "I'm currently receiving too many requests due to my free tier limits. Please hang tight or try asking again in a minute! ⏳🌱",
+                message: "I'm currently receiving too many requests. Please hang tight or try asking again in a minute! ⏳🌱",
                 success: false
             })
         }
