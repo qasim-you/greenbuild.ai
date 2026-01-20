@@ -8,7 +8,6 @@ export async function POST(req: Request) {
 
         const materials = await loadMaterialData()
 
-        // Calculate Baseline (bias = 0, costing focus or just standard materials)
         const baseline = calculateDetailedEngine(specs, materials, 0)
 
         const aiData = await getGreenBuildRecommendations(
@@ -22,8 +21,11 @@ export async function POST(req: Request) {
             aiData,
             materials // Sending down to let client-side recalculate live
         })
-    } catch (error) {
-        console.error("API Error:", error)
-        return NextResponse.json({ error: "Failed to analyze building specs" }, { status: 500 })
+    } catch (error: any) {
+        console.error("API Analysis Error:", error)
+        return NextResponse.json({
+            error: "Failed to analyze building specs",
+            details: error.message
+        }, { status: 500 })
     }
 }

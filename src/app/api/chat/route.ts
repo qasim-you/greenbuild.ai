@@ -1,9 +1,10 @@
+import { createGoogleGenerativeAI } from "@ai-sdk/google"
+import { generateText } from "ai"
 import { NextResponse } from "next/server"
-import { GoogleGenerativeAI } from "@google/generative-ai"
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "")
-
-console.log(process.env.GEMINI_API_KEY);
+const google = createGoogleGenerativeAI({
+    apiKey: process.env.GEMINI_API_KEY || "",
+})
 
 const SYSTEM_CONTEXT = `You are GreenBuild AI Assistant, a friendly and knowledgeable sustainability expert for construction projects.
 
@@ -35,46 +36,33 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: "Message is required" }, { status: 400 })
         }
 
-        // ✅ Use a valid model
-        const model = genAI.getGenerativeModel({
-            model: "gemini-2.0-flash", // updated model that exists
-            generationConfig: {
-                temperature: 0.7,
-                maxOutputTokens: 500,
-            }
+        const { text } = await generateText({
+            model: google("gemini-exp-1206"),
+            system: SYSTEM_CONTEXT,
+            messages: [
+                ...(history || []).map((msg: any) => ({
+                    role: msg.role === "user" ? "user" : "assistant",
+                    content: msg.content,
+                })),
+                { role: "user", content: message },
+            ],
+            temperature: 0.7,
         })
 
-        // Build conversation history
-        const conversationHistory = history?.map((msg: { role: string; content: string }) =>
-            `${msg.role === "user" ? "User" : "Assistant"}: ${msg.content}`
-        ).join("\n") || ""
+        return NextResponse.json({ message: text, success: true })
+    } catch (error: any) {
+        console.error("Chat API Error:", error)
 
-        const prompt = `${SYSTEM_CONTEXT}\n\nPrevious conversation:\n${conversationHistory}\n\nUser: ${message}\n\nRespond helpfully as GreenBuild AI Assistant:`
-
-        // Retry logic for transient errors
-        let text = ""
-        let attempt = 0
-        while (attempt < 2) {
-            try {
-                const result = await model.generateContent(prompt)
-                const response = await result.response
-                text = response.text()
-                break
-            } catch (e: any) {
-                attempt++
-                if (e.status === 429 && attempt < 2) {
-                    await new Promise(resolve => setTimeout(resolve, 2000))
-                    continue
-                }
-                throw e
-            }
+        // Final fallback if quota is still an issue
+        if (error.status === 429 || error.message?.includes("quota")) {
+            return NextResponse.json({
+                message: "I'm currently receiving too many requests due to my free tier limits. Please hang tight or try asking again in a minute! ⏳🌱",
+                success: false
+            })
         }
 
-        return NextResponse.json({ message: text, success: true })
-    } catch (error) {
-        console.error("Chat API Error:", error)
         return NextResponse.json({
-            message: "I'm having trouble connecting right now. Please try again in a moment! 🔄",
+            message: "I'm having a little trouble thinking right now. Could you try that again? 🔄",
             success: false
         }, { status: 500 })
     }
