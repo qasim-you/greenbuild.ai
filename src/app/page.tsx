@@ -5,7 +5,6 @@ import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { ArrowRight, Leaf, Zap, BarChart3, Globe, Target, Users } from "lucide-react"
-
 import { useAuth } from "@/context/AuthContext"
 import { LogOut, User } from "lucide-react"
 import {
