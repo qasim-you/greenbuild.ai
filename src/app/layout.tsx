@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://greenbuild.ai"),
+  metadataBase: new URL("https://greenbuild-ai.vercel.app"),
   title: "GreenBuild AI | Carbon-Smart Construction Advisor",
   description: "AI-powered sustainability advisor for construction projects. Reduce carbon, build greener, and save costs with intelligent AI reasoning.",
   keywords: ["sustainability", "construction", "carbon footprint", "AI advisor", "green building", "carbon-smart", "embodied carbon"],
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "GreenBuild AI | Sustainable Construction",
     description: "Build Smarter. Build Greener. AI-powered carbon-smart construction decisions.",
-    url: "https://greenbuild.ai",
+    url: "https://greenbuild-ai.vercel.app",
     siteName: "GreenBuild AI",
     images: [
       {
