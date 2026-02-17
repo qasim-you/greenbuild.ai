@@ -5,7 +5,7 @@ import { useRouter, usePathname } from "next/navigation"
 import { useEffect } from "react"
 import { Leaf } from "lucide-react"
 
-const publicPaths = ["/", "/login", "/privacy", "/terms", "/contact"]
+const publicPaths = ["/", "/login", "/privacy", "/terms", "/contact", "/vision", "/pricing"]
 
 export function AuthGuard({ children }: { children: React.ReactNode }) {
     const { user, loading } = useAuth()

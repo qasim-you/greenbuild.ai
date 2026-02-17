@@ -51,10 +51,14 @@ export default function LandingPage() {
           <nav className="hidden md:flex items-center gap-6">
             <Link href="#features" className="text-sm font-medium hover:text-primary transition-colors">Features</Link>
             <Link href="#how-it-works" className="text-sm font-medium hover:text-primary transition-colors">How it Works</Link>
+            <Link href="/pricing" className="text-sm font-medium hover:text-primary transition-colors">Pricing</Link>
             <Link href="/vision" className="text-sm font-medium hover:text-primary transition-colors">Our Vision</Link>
 
             {user ? (
               <div className="flex items-center gap-4">
+                <Button asChild variant="ghost" size="sm" className="bg-muted/50 hover:bg-muted">
+                  <Link href="/dashboard">Dashboard</Link>
+                </Button>
                 <Button asChild variant="default" size="sm" className="rounded-full">
                   <Link href="/analyze">Analyze Project</Link>
                 </Button>

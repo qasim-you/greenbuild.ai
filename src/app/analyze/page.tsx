@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
@@ -106,11 +107,18 @@ export default function AnalyzePage() {
         <div className="min-h-screen bg-muted/30 flex flex-col">
             {/* Header */}
             <header className="border-b bg-background p-4">
-                <div className="container mx-auto flex items-center gap-2">
-                    <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                        <Leaf className="text-primary-foreground w-4 h-4" />
+                <div className="container mx-auto flex items-center justify-between">
+                    <Link href="/" className="flex items-center gap-2">
+                        <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                            <Leaf className="text-primary-foreground w-4 h-4" />
+                        </div>
+                        <span className="font-bold text-lg">GreenBuild AI</span>
+                    </Link>
+                    <div className="flex items-center gap-4">
+                        <Link href="/dashboard" className="text-sm font-medium hover:text-primary underline-offset-4 hover:underline transition-all">
+                            Dashboard
+                        </Link>
                     </div>
-                    <span className="font-bold text-lg">GreenBuild AI</span>
                 </div>
             </header>
 
@@ -158,8 +166,8 @@ export default function AnalyzePage() {
                                                     key={type.id}
                                                     onClick={() => updateFormData("type", type.id)}
                                                     className={`flex items-start text-left gap-4 p-4 rounded-xl border-2 transition-all ${formData.type === type.id
-                                                            ? "border-primary bg-primary/5 ring-4 ring-primary/10"
-                                                            : "border-muted hover:border-slate-300"
+                                                        ? "border-primary bg-primary/5 ring-4 ring-primary/10"
+                                                        : "border-muted hover:border-slate-300"
                                                         }`}
                                                 >
                                                     <div className={`p-2 rounded-lg ${formData.type === type.id ? "bg-primary text-primary-foreground" : "bg-muted"}`}>
@@ -271,8 +279,8 @@ export default function AnalyzePage() {
                                                             key={level}
                                                             onClick={() => updateFormData("budget", level)}
                                                             className={`p-4 rounded-xl border-2 transition-all ${formData.budget === level
-                                                                    ? "border-primary bg-primary/5 font-bold"
-                                                                    : "border-muted hover:border-slate-300"
+                                                                ? "border-primary bg-primary/5 font-bold"
+                                                                : "border-muted hover:border-slate-300"
                                                                 }`}
                                                         >
                                                             {level}
