@@ -139,12 +139,6 @@ GreenBuild AI operates on a freemium SaaS model with marketplace potential.
     NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
     ```
 
-4.  **Run Locally**
-    ```bash
-    npm run dev
-    ```
-    Visit `http://localhost:3000`.
-
 ---
 
 ## 🤝 Contact & Fundraising
