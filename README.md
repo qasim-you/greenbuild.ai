@@ -145,7 +145,7 @@ GreenBuild AI operates on a freemium SaaS model with marketplace potential.
 
 **GreenBuild AI** is currently raising a **Pre-Seed round** to accelerate our AI model training and pilot with 3 major architectural firms.
 
-*   **Founder:** [Your Name]
+*   **Founder:** Muhammad Qasim
 *   **Email:** founders@greenbuild.ai
 *   **GitHub:** [github.com/qasim-you/greenbuild.ai](https://github.com/qasim-you/greenbuild.ai)
 
