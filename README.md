@@ -1,7 +1,6 @@
 # GreenBuild AI 🌿
 
 **A Davos-level Decision Intelligence System for Sustainable Construction.**
-
 ---
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-emerald.svg)](https://opensource.org/licenses/MIT)
